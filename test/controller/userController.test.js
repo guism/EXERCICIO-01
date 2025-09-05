@@ -15,6 +15,12 @@ before(async () => {
 
 // Testes
 describe('User Controller', () => {
+
+    beforeEach(async () => {
+        // Clean up or reset mocks here
+        sinon.restore();
+    });
+
     describe('POST /register', () => {
         it('Deve registrar um novo usuário', async () => {
             const resposta = await request(app)
@@ -39,6 +45,7 @@ describe('User Controller', () => {
             await request(app)
                 .post('/register')
                 .send({ username: 'usuarioExistente', password: 'senha123' });
+            
             const resposta = await request(app)
                 .post('/register')
                 .send({ username: 'usuarioExistente', password: 'senha123' });
